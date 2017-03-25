@@ -7,7 +7,7 @@ Playing OPenAI GYM Games
 3. Environment
 4. State, Observation, done, info
 
-<pre<code>
+<pre><code>
 import gym
 
 env = gym.make("FrozenLake-v0")
