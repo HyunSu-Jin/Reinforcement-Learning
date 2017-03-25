@@ -102,7 +102,9 @@ Q-leaning at Non-deterministic(Stochastic)
 1. 실행결과
 ![lab5-1](/lab5/result/lab5_result1.png)
 2. 통계
+
 ![lab5-2](/lab5/result/figure1.png)
+
 실행결과가 상당히 성능이 떨어지는 것을 관찰할 수 있다.
 1. 왜 그런것일까?
 - 앞서 정의했었던 알고리즘은 다음과 같다.
@@ -121,6 +123,8 @@ Q[state,action] =  (1-learning_rate) * Q[state,action] + learning_rate *(reward 
 4. 실행결과
 ![lab5-3](/lab5/result/lab5_result2.png)
 5. 통계
+
 ![lab5-4](/lab5/result/figure2.png)
+
 이전 알고리즘보다 성능이  개선된 것을 확인할 수 있다.
 
