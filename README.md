@@ -25,14 +25,19 @@ for _ in range(1000):
 Dummy Q-learning, Q-table
 1. 주어진 Environment,환경 내에서 Actor가 최고의 reward,optimal value를 얻기위한 알고리즘기법
 2. 각 Actor는 현재 State에 해당하는 Q-table 값을 참조하여 다음으로 행해질 Action을 결정하게 된다.
+
 <pre><code>
 action = rargmax(Q[state,:])
 </code></pre>
+
 즉, 현 state에 존재하는 Q-table, ex) [0,0,1,0] 을 보고 maximum값인 1을 나타내는 index 2,action을 리턴한다.
+
 3. 이러한 방법으로 Actor는 현 State에 해당하는 Q-table을 참고하여 Action을 결정하며, 이는 Actor로 하여금 goal을 달성하게 할 optimal solution을 제공한다.(단, dummy Q-learning에는 허점이 존재)
+
 4. 그렇다면, 이러한 Q-table을 만드는 과정이 요구되는데, 이 과정을 다음과 같은 알고리즘을 바탕으로 하여 강화학습, Reinforcement Learning 과정을 통해 Q-talbe을 만들어낸다.
 - Q(s,a) = reward + max Q(s',a')
 - 현 State에서의 Q(s,a) 값은 다음 state에서의 reward + 해당 state의 Q-table값중 가장 큰 것의 합.
+
 <pre><code>
 Q[state,action] = reward + np.max(Q[new_state,:])
 </code></pre>
