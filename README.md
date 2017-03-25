@@ -66,7 +66,7 @@ for i in range(num_episodes):
 Q-learning(Table) ,Not dummy
 - 기존의 dummy Q-leaning에서는 첫번째로 goal을 달성하게 되면 그때 정해진 path로 시종일관하여 Action path를 결정하게 되어 그 path외에는 다른 path는 탐색하지 않았다
 - 이러한 특성때문에 결정된 Action path가 optimal하지 않은경우 algorithm의 효율성이 떨어지는 문제가 발생하였다.
-- 이를 해결하기 위해서 Explicit vs. Exploration 을 E-greedy or random noise방법으로 결정하여 기존에 만든 path외에도 다른길을 탐색하여 최종적으로는 optimal pocicy(optimal path와 비슷)을 결정하도록 한다.
+- 이를 해결하기 위해서 Explicit vs. Exploration 을 E-greedy or random noise방법으로 결정하여 기존에 만든 path외에도 다른길을 탐색하여 최종적으로는 optimal poclicy(optimal path와 비슷)을 결정하도록 한다.
 - 추가적으로, trainning과정 초기에는 자유도(e)가 상대적으로 커서 랜덤성이 강해 exploration 확률이 크지만, trainning이 일정부분 완성된 경우에는 자유도를 낮추어 exploration 확률을 적게한다. -- discounting 방법
 
 ### e-greedy 방법
@@ -92,4 +92,35 @@ action = np.argmax(Q[state,:] + np.random.rand(1,env.action_space.n) / (i+1))
 3. 실행결과
 - e-greedy보다 성공률이 높았다. 역시 마찬가지로 optimal policy를 보인다.
 ![lab4-n](/lab4/result/lab4_n.png)
+
+## Lab5
+Q-leaning at Non-deterministic(Stochastic)
+- 기존의 실습환경은 Actor가 수행하는 Action에 따라서 그 다음의 State가 결정되어지는 환경이었다. 그러나, 이번에 확인하고자 하는 문제는 실세계와 같이 Actor가 Action을 취함에 따라서 결정되어지는 State가 일정하지않다.
+이렇게 주어진 상황에서 기존의 deterministic 환경에서 정의했었던 Q-leaning 알고리즘을 사용한다면 어떠한 실행결과가 나올까?
+
+### Non-deterministic 환경에 기존 알고리즘 적용
+1. 실행결과
+![lab5-1]()
+2. 통계
+![lab5-2]()
+실행결과가 상당히 성능이 떨어지는 것을 관찰할 수 있다.
+1. 왜 그런것일까?
+- 앞서 정의했었던 알고리즘은 다음과 같다.
+<pre><code>
+new_state, reward, done, _ = env.step(action)
+Q[state,action] = reward + dis * np.max(Q[new_state,:])
+</code></pre>
+위 결과가 형편없는 이유는 Q-table이 말해주는 정보가 옳지 않은까닭이다. Q-table은 Actor가 '정한' action을 수행하고 이에 따른 new_state 의 정보를 Actor에게 전달하는 것이다. 그런데, new_state가 non-deterministic 함에 따라서 Q-table은 Actor가 RIGHT action을 수행하고 엉뚱한 state로 빠져 결과값을 얻은 것을 Actor에게 말해주는 꼴이 되버린것이다.
+1. 이에 따라서 Q-table update 알고리즘을 다음과 같이 수정해야한다.
+2. learing_rate 개념을 도입하여, next State에 대한 Q-table이 알려주는 정보를 완전히 신뢰하지 않고 weight를 주어 정보를 참고하고, 나머지 weight는 기존의 State에 대한 Q-table정보를 사용한다.
+<pre><code>
+Q[state,action] =  (1-learning_rate) * Q[state,action] + learning_rate *(reward + dis * np.max(Q[new_state,:]))
+</code></pre>
+
+3. 위와 같이 Q-update 알고리즘을 수정한뒤에 같은환경에서 실행.
+4. 실행결과
+![lab5-1]()
+5. 통계
+![lab5-1]()
+이전 알고리즘보다 상당부분 성능이 개선된 것을 확인할 수 있다.
 
