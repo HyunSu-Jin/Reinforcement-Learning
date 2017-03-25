@@ -62,3 +62,35 @@ for i in range(num_episodes):
 - 초기의 훈련단계에서는 Q-table이 완성되어지지 않은 훈련단계로써 성공률이 0에 수렴하지만, 한번 Q-table이 완성되고 나서는 Actor는 정해진 길로만 action-path를 수행하여 goal을 달성하므로 성공률이 1로 수렴한다.
 ![lab3-figure](/lab3/result/figure.png)
 
+## Lab4
+Q-learning(Table) ,Not dummy
+- 기존의 dummy Q-leaning에서는 첫번째로 goal을 달성하게 되면 그때 정해진 path로 시종일관하여 Action path를 결정하게 되어 그 path외에는 다른 path는 탐색하지 않았다
+- 이러한 특성때문에 결정된 Action path가 optimal하지 않은경우 algorithm의 효율성이 떨어지는 문제가 발생하였다.
+- 이를 해결하기 위해서 Explicit vs. Exploration 을 E-greedy or random noise방법으로 결정하여 기존에 만든 path외에도 다른길을 탐색하여 최종적으로는 optimal pocicy(optimal path와 비슷)을 결정하도록 한다.
+- 추가적으로, trainning과정 초기에는 자유도(e)가 상대적으로 커서 랜덤성이 강해 exploration 확률이 크지만, trainning이 일정부분 완성된 경우에는 자유도를 낮추어 exploration 확률을 적게한다. -- discounting 방법
+
+### e-greedy 방법
+<pre><code>
+e = 1.0 / ((i//100) + 1)
+if np.random.rand(1) < e:
+			action = env.action_space.sample()
+		else:
+			action = np.argmax(Q[state,:])
+</code></pre>
+1. i값에따라서 discounting되는 e 를 결정한다.
+2. random한 수를 뽑고 e와 비교해 Explicit vs. Exploration을 결정한다.
+- 특징 : e - greedy는 random noise와는 다르게 랜덤성이 Q-table의 값과 전혀 무관하게 결정되어진다.
+3. 실행결과
+- 완전한 랜덤으로, random noise보다 성공률이 낮지만 optimal policy를 찾아내었다.
+![lab4-e]()
+
+### random noise 방법
+<pre><code>
+action = np.argmax(Q[state,:] + np.random.rand(1,env.action_space.n) / (i+1))
+</code></pre>
+1. 기존의 Q-table을 참조하여 action을 결정하는 algorithm에 일련의 noise값을 추가해 랜덤성을 부과한다.
+2. 이 방법은 기존의 Q-table 값에 종속적이므로(dependent) 다음과 같은 실행결과를 갖는다.
+3. 실행결과
+- e-greedy보다 성공률이 높았다. 역시 마찬가지로 optimal policy를 보인다.
+![lab4-n]()
+
