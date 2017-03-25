@@ -49,8 +49,10 @@ for i in range(num_episodes):
 		state = new_state
 # end of tranning
 </code></pre>
+
 6. 실행결과
 ![lab3-result](/lab3/result/figure.png)
+
 7. 통계
 - 초기의 훈련단계에서는 Q-table이 완성되어지지 않은 훈련단계로써 성공률이 0에 수렴하지만, 한번 Q-table이 완성되고 나서는 Actor는 정해진 길로만 action-path를 수행하여 goal을 달성하므로 성공률이 1로 수렴한다.
 ![lab3-figure](/lab3/result/lab3_result.png)
