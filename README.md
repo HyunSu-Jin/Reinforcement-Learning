@@ -106,6 +106,7 @@ Q-leaning at Non-deterministic(Stochastic)
 ![lab5-2](/lab5/result/figure1.png)
 
 실행결과가 상당히 성능이 떨어지는 것을 관찰할 수 있다.
+
 3. Q-leaning 성능이 형편없는 이유
 앞서 정의했었던 알고리즘은 다음과 같다.
 <pre><code>
@@ -113,7 +114,9 @@ new_state, reward, done, _ = env.step(action)
 Q[state,action] = reward + dis * np.max(Q[new_state,:])
 </code></pre>
 위 결과가 형편없는 이유는 Q-table이 말해주는 정보가 옳지 않은까닭이다. Q-table은 Actor가 '정한' action을 수행하고 이에 따른 new_state 의 정보를 Actor에게 전달하는 것이다. 그런데, new_state가 non-deterministic 함에 따라서 Q-table은 Actor가 RIGHT action을 수행하고 엉뚱한 state로 빠져 결과값을 얻은 것을 Actor에게 말해주는 꼴이 되버린것이다.
+
 4. 이에 따라서 Q-table update 알고리즘을 다음과 같이 수정해야한다.
+
 5. learing_rate 개념을 도입하여, next State에 대한 Q-table이 알려주는 정보를 완전히 신뢰하지 않고 weight를 주어 정보를 참고하고, 나머지 weight는 기존의 State에 대한 Q-table정보를 사용한다.
 <pre><code>
 Q[state,action] =  (1-learning_rate) * Q[state,action] + learning_rate *(reward + dis * np.max(Q[new_state,:]))
