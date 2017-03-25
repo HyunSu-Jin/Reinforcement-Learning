@@ -100,7 +100,7 @@ Q-leaning at Non-deterministic(Stochastic)
 
 ### Non-deterministic 환경에 기존 알고리즘 적용
 1. 실행결과
-![lab5-1](/lab5/result/lab5_.result1.png)
+![lab5-1](/lab5/result/lab5_result1.png)
 2. 통계
 ![lab5-2](/lab5/result/figure1.png)
 실행결과가 상당히 성능이 떨어지는 것을 관찰할 수 있다.
@@ -119,8 +119,8 @@ Q[state,action] =  (1-learning_rate) * Q[state,action] + learning_rate *(reward 
 
 3. 위와 같이 Q-update 알고리즘을 수정한뒤에 같은환경에서 실행.
 4. 실행결과
-![lab5-3](/lab5/result/lab5_.result2.png)
+![lab5-3](/lab5/result/lab5_result2.png)
 5. 통계
 ![lab5-4](/lab5/result/figure2.png)
-이전 알고리즘보다 상당부분 성능이 개선된 것을 확인할 수 있다.
+이전 알고리즘보다 성능이  개선된 것을 확인할 수 있다.
 
