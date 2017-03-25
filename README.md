@@ -107,7 +107,7 @@ Q-leaning at Non-deterministic(Stochastic)
 
 실행결과가 상당히 성능이 떨어지는 것을 관찰할 수 있다.
 1. 왜 그런것일까?
-- 앞서 정의했었던 알고리즘은 다음과 같다.
+앞서 정의했었던 알고리즘은 다음과 같다.
 <pre><code>
 new_state, reward, done, _ = env.step(action)
 Q[state,action] = reward + dis * np.max(Q[new_state,:])
