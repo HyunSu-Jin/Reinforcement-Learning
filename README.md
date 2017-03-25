@@ -82,8 +82,7 @@ if np.random.rand(1) < e:
 - 특징 : e - greedy는 random noise와는 다르게 랜덤성이 Q-table의 값과 전혀 무관하게 결정되어진다.
 3. 실행결과
 - 완전한 랜덤으로, random noise보다 성공률이 낮지만 optimal policy를 찾아내었다.
-![lab4-e]()
-
+![lab4-e](/lab4/result/lab4_e.png)
 ### random noise 방법
 <pre><code>
 action = np.argmax(Q[state,:] + np.random.rand(1,env.action_space.n) / (i+1))
@@ -92,5 +91,5 @@ action = np.argmax(Q[state,:] + np.random.rand(1,env.action_space.n) / (i+1))
 2. 이 방법은 기존의 Q-table 값에 종속적이므로(dependent) 다음과 같은 실행결과를 갖는다.
 3. 실행결과
 - e-greedy보다 성공률이 높았다. 역시 마찬가지로 optimal policy를 보인다.
-![lab4-n]()
+![lab4-n](/lab4/result/lab4_n.png)
 
