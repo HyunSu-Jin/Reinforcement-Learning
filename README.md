@@ -67,8 +67,7 @@ Q-learning(Table) ,Not dummy
 - 기존의 dummy Q-leaning에서는 첫번째로 goal을 달성하게 되면 그때 정해진 path로 시종일관하여 Action path를 결정하게 되어 그 path외에는 다른 path는 탐색하지 않았다
 - 이러한 특성때문에 결정된 Action path가 optimal하지 않은경우 algorithm의 효율성이 떨어지는 문제가 발생하였다.
 - 이를 해결하기 위해서 Explicit vs. Exploration 을 E-greedy or random noise방법으로 결정하여 기존에 만든 path외에도 다른길을 탐색하여 최종적으로는 optimal poclicy(optimal path와 비슷)을 결정하도록 한다.
-- 추가적으로, trainning과정 초기에는 자유도(e)가 상대적으로 커서 랜덤성이 강해 exploration 확률이 크지만, trainning이 일정부분 완성된 경우에는 자유도를 낮추어 exploration 확률을 적게한다. -- discounting 방법
-
+- 추가적으로, trainning과정 초기에는 자유도(e)가 상대적으로 커서 랜덤성이 강해 exploration 확률이 크지만, trainning이 일정부분 완성된 경우에는 자유도를 낮추어 exploration 확률을 적게한다. -- decaying
 ### e-greedy 방법
 <pre><code>
 e = 1.0 / ((i//100) + 1)
